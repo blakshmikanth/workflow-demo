@@ -49,6 +49,9 @@ const App = () => {
           cellViewNamespace: shapes,
         };
       },
+      // the default `true` will resize the elements to fit the stencil width
+      // so the size defined for the stencil elements later will be ignored
+      // (or only the ratio will be taken into account)
       layout: true,
 
       // layout: {
@@ -68,22 +71,56 @@ const App = () => {
     // stencil.render();
 
     stencil.load([
-      new shapes.basic.Rect({ size: { width: 50, height: 30 } }),
-      new shapes.basic.Ellipse({ size: { width: 50, height: 30 } }),
-      new shapes.basic.Circle({ size: { width: 30, height: 30 } }),
-      new shapes.basic.Rhombus({ size: { width: 50, height: 30 } }),
+      // Do not use deprecated shapes from `basic` namespace
+      // new shapes.basic.Rect({ size: { width: 50, height: 30 } }),
+      // new shapes.basic.Ellipse({ size: { width: 50, height: 30 } }),
+      // new shapes.basic.Circle({ size: { width: 30, height: 30 } }),
+      // new shapes.basic.Rhombus({ size: { width: 50, height: 30 } }),
       new shapes.standard.Link({ size: { width: 50, height: 30 } }),
       new shapes.standard.HeaderedRectangle({ size: { width: 50, height: 30 } }),
       new shapes.standard.BorderedImage({ size: { width: 50, height: 30 } }),
       new shapes.standard.Image({ size: { width: 50, height: 30 } }),
-      new shapes.basic.Polygon({
-        body: {
-          fill: "#FF00FF",
-          fillOpacity: 0.5,
+
+
+      // See info on calc() expression here: https://resources.jointjs.com/docs/jointjs/v3.5/joint.html#dia.attributes
+
+      // Rhombus
+      new shapes.standard.Polygon({
+        attrs: {
+          body: {
+            points: '0,calc(0.5 * h) calc(0.5 * w), 0 calc(w),calc(0.5 * h)  calc(0.5 * w), calc(h)',
+            fill: "#FF00FF",
+            fillOpacity: 0.5,
+          },
         },
         size: { width: 50, height: 30 },
       }),
-      new shapes.standard.Circle({ size: { width: 50, height: 30 } }),
+      // Tooltip
+
+      new shapes.standard.Path({
+        attrs: {
+          body: {
+            d: 'M 0 calc(0.5*h) calc(0.5*h) 0 H calc(w) V calc(h) H calc(0.5*h) Z',
+            fill: "#FF00FF",
+            fillOpacity: 0.5,
+          },
+        },
+        size: { width: 50, height: 30 },
+      }),
+
+
+      new shapes.standard.Path({
+        attrs: {
+          body: {
+            d: 'M 0 0 H calc(w) V calc(h) H 40 l -20 20 v -20 H 0 z',
+            fill: "#FF00FF",
+            fillOpacity: 0.5,
+          },
+        },
+        size: { width: 50, height: 30 },
+      }),
+
+      new shapes.standard.Ellipse({ size: { width: 50, height: 30 } }),
 
       // {
       //   type: "standard.Rectangle",
