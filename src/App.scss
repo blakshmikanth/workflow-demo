@@ -1,0 +1,33 @@
+@import "~@clientio/rappid/rappid.css";
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+
+  .stencil {
+    min-width: 20%;
+    max-width: 20%;
+    height: 100%;
+    position: relative;
+    border: 1px solid black;
+  }
+
+  .canvas {
+    width: 60%;
+    height: 100%;
+    flex-grow: 1;
+
+    .joint-paper {
+      border: 1px solid black;
+    }
+  }
+
+  .inspector {
+    min-width: 20%;
+    max-width: 20%;
+    height: 100%;
+    position: relative;
+    background-color: lightyellow;
+  }
+}
